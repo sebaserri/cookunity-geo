@@ -1,13 +1,13 @@
 export interface ICurrencyAPIResponse {
   success: boolean;
-  timestamp: Number;
+  timestamp: number;
   base: string;
   date: string;
-  rates: Rates;
+  rates: IRate;
   error?: CurrencyError | null;
 }
 
-export interface Rates {
+export interface IRate {
   ARS?: number;
   USD?: number;
   GBP?: number;
