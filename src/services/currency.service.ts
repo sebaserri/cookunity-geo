@@ -1,16 +1,16 @@
-import {ILocation} from "../interfaces/location.interface";
-import {ICurrencyAPIResponse} from "../interfaces/currency.api.response.interface";
-import {CurrencyDTO} from "../dto/currency.dto";
+import { ILocation } from "../interfaces/location.interface";
+import { ICurrencyAPIResponse } from "../interfaces/currency.api.response.interface";
+import { CurrencyDTO } from "../dto/currency.dto";
 
 export class CurrencyService {
- // private readonly CURRENCY_API_KEY: string | undefined;
+  // private readonly CURRENCY_API_KEY: string | undefined;
 
   constructor() {
- //   this.CURRENCY_API_KEY = process.env.CURRENCY_API_KEY ?? "";
+    //   this.CURRENCY_API_KEY = process.env.CURRENCY_API_KEY ?? "";
   }
 
   public async fetchCurrency(_location: ILocation): Promise<any> {
-/*    const response = await fetch(
+    /*    const response = await fetch(
       `http://data.fixer.io/api/latest?access_key=${this.CURRENCY_API_KEY}&base=USD&symbols=${location.currency},USD`
     );
     if (!response.ok) {
@@ -24,15 +24,15 @@ export class CurrencyService {
     }
     */
     const data: ICurrencyAPIResponse = {
-      "success": true,
-      "timestamp": 1519296206,
-      "base": "USD",
-      "date": "2023-07-21",
-      "rates": {
-        "ARS": 0.023,
-        "JPY": 107.346001,
-        "EUR": 0.813399,
-      }
+      success: true,
+      timestamp: 1519296206,
+      base: "USD",
+      date: "2023-07-21",
+      rates: {
+        ARS: 0.023,
+        JPY: 107.346001,
+        EUR: 0.813399,
+      },
     } as ICurrencyAPIResponse;
     return this.toICurrency(data);
   }
@@ -43,7 +43,7 @@ export class CurrencyService {
       const currencyData = {
         iso,
         symbol: "$",
-        conversionRate
+        conversionRate,
       };
 
       const currencyDto: CurrencyDTO = new CurrencyDTO(currencyData);

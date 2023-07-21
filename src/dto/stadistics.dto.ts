@@ -1,5 +1,5 @@
-import {TraceInfoDTO} from "./traceInfo.dto";
-import {DistanceInfoDTO} from "./distanceInfo.dto";
+import { TraceInfoDTO } from "./traceInfo.dto";
+import { DistanceInfoDTO } from "./distanceInfo.dto";
 
 export class StatisticsDTO {
   longestDistance: DistanceInfoDTO;

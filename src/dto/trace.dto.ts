@@ -1,5 +1,5 @@
-import {CurrencyDTO} from "./currency.dto";
-import {ILocation} from "../interfaces/location.interface";
+import { CurrencyDTO } from "./currency.dto";
+import { ILocation } from "../interfaces/location.interface";
 
 export class TraceDTO {
   ip: string;
