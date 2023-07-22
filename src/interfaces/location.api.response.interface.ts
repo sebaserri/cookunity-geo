@@ -1,7 +1,7 @@
 export interface ILocationResponse {
   country: string;
   countryCode: string;
-  lat: Number;
-  lon: Number;
+  lat: number;
+  lon: number;
   currency: string;
 }

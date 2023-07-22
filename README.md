@@ -16,6 +16,7 @@ Use the package manager [npm](https://www.npmjs.com/) to install the API.
 cd cookunity-geo
 npm install
 ```
+
 ## Requirements
 
 - Docker
@@ -30,7 +31,9 @@ const EARTH_RADIUS_KM: number = 6371;
 ```
 
 The point of reference in USA to trace the distance is NY:
+
 #### The New York City Hall
+
 ```javascript
 const NY_LAT: number = 40.7128;
 const NY_LON: number = -74.006;
@@ -38,11 +41,18 @@ const NY_LON: number = -74.006;
 
 ## Run
 
-Use the package manager [npm](https://www.npmjs.com/) to install the API.
+To start up the project, just run:
 
 ```bash
-cd cookunity-geo
-npm install
+docker-compose up --build
+```
+
+## Test
+
+Using Jest for unit test:
+
+```bash
+npm test
 ```
 
 ## Usage
@@ -50,14 +60,18 @@ npm install
 ### Traces
 
 - Request
+
 ```bash
 POST http://localhost:8000/api/distance/traces
 {
   "ip": "1.178.32.5"
 }
 ```
+
 - Responses
+
 #### HTTP 200
+
 ```javascript
 {
     "ip": "1.178.32.5",
@@ -85,7 +99,9 @@ POST http://localhost:8000/api/distance/traces
     "distanceToUSA": 7685.63
 }
 ```
+
 #### HTTP 400
+
 ```javascript
 {
     "success": false,
@@ -96,11 +112,15 @@ POST http://localhost:8000/api/distance/traces
 ### Statistics
 
 - Request
+
 ```bash
 GET http://localhost:8000/api/distance/statistics
 ```
+
 - Responses
+
 #### HTTP 200
+
 ```javascript
 {
     "longestDistance": {
@@ -113,6 +133,7 @@ GET http://localhost:8000/api/distance/statistics
     }
 }
 ```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first

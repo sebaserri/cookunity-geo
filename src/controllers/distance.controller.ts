@@ -104,4 +104,8 @@ export class DistanceController {
   set currencyService(currencyService: CurrencyService) {
     this._currencyService = currencyService;
   }
+
+  set redisService(redisService: RedisService) {
+    this._redisService = redisService;
+  }
 }
