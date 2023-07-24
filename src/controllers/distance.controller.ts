@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { DistanceService } from "../services/distance.service";
 import _ from "lodash";
-import { isValidIP } from "../utils/commons";
+import { isValidIP, getDateFormatted } from "../utils/commons";
 import { ILocation } from "../interfaces/location.interface";
 import { CurrencyService } from "../services/currency.service";
 import { CurrencyDTO } from "../dto/currency.dto";
@@ -28,7 +28,8 @@ export class DistanceController {
     }
 
     try {
-      const locationCached = await this._redisService.get(ip);
+      const currentDate: string = getDateFormatted();
+      const locationCached: TraceDTO | null = await this._redisService.get(ip + currentDate);
       if (locationCached) {
         return res.json(locationCached);
       }

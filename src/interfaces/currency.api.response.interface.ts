@@ -3,19 +3,12 @@ export interface ICurrencyAPIResponse {
   timestamp: number;
   base: string;
   date: string;
-  rates: IRate;
+  rates: {
+    [currency: string]: number;
+  };
   error?: CurrencyError | null;
 }
 
-export interface IRate {
-  ARS?: number;
-  USD?: number;
-  GBP?: number;
-  JPY?: number;
-  EUR?: number;
-  AUD?: number;
-  CAD?: number;
-}
 
 export interface CurrencyError {
   code: number;

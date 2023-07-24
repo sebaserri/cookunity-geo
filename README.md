@@ -39,6 +39,14 @@ const NY_LAT: number = 40.7128;
 const NY_LON: number = -74.006;
 ```
 
+## Build
+
+To build the project, just run:
+
+```bash
+npm run build
+```
+
 ## Run
 
 To start up the project, just run:
@@ -74,29 +82,24 @@ POST http://localhost:8000/api/distance/traces
 
 ```javascript
 {
-    "ip": "1.178.32.5",
-    "name": "Brazil",
-    "code": "BR",
-    "lat": -23.5505,
-    "lon": -46.6333,
+  "ip": "101.112.0.23",
+    "name": "Australia",
+    "code": "AU",
+    "lat": -33.8715,
+    "lon": 151.2006,
     "currencies": [
-        {
-            "iso": "ARS",
-            "symbol": "$",
-            "conversionRate": 0.023
-        },
-        {
-            "iso": "JPY",
-            "symbol": "$",
-            "conversionRate": 107.346001
-        },
-        {
-            "iso": "EUR",
-            "symbol": "$",
-            "conversionRate": 0.813399
-        }
-    ],
-    "distanceToUSA": 7685.63
+    {
+      "iso": "AUD",
+      "symbol": "$",
+      "conversionRate": 0.6092185736121848
+    },
+    {
+      "iso": "USD",
+      "symbol": "$",
+      "conversionRate": 1
+    }
+  ],
+    "distanceToUSA": 15989.61
 }
 ```
 
@@ -123,15 +126,31 @@ GET http://localhost:8000/api/distance/statistics
 
 ```javascript
 {
-    "longestDistance": {
-        "country": "Australia",
-        "value": 15500.36
-    },
-    "mostTraced": {
-        "country": "Brazil",
-        "value": 2
-    }
+  "longestDistance": {
+    "country": "Australia",
+      "value": 15989.61
+  },
+  "mostTraced": {
+    "country": "Brazil",
+      "value": 6
+  }
 }
+```
+
+
+## Performance using Redis
+
+Hitting Traces' endpoint using a new IP address
+
+```bash
+cookunity-geo-geo-app-1  | POST /api/distance/traces 200 228 - 1072.568 ms
+```
+
+Called Traces using the same IP (more than once):
+
+```bash
+cookunity-geo-geo-app-1  | POST /api/distance/traces 200 228 - 652.366 ms
+cookunity-geo-geo-app-1  | POST /api/distance/traces 200 228 - 650.216 ms
 ```
 
 ## Contributing

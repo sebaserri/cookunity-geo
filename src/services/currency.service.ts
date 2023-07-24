@@ -1,53 +1,46 @@
-import { ILocation } from "../interfaces/location.interface";
-import { ICurrencyAPIResponse } from "../interfaces/currency.api.response.interface";
-import { CurrencyDTO } from "../dto/currency.dto";
+import { ILocation } from '../interfaces/location.interface';
+import { ICurrencyAPIResponse } from '../interfaces/currency.api.response.interface';
+import { CurrencyDTO } from '../dto/currency.dto';
 
 export class CurrencyService {
-  // private readonly CURRENCY_API_KEY: string | undefined;
+  private readonly CURRENCY_API_KEY: string | undefined;
 
   constructor() {
-    //   this.CURRENCY_API_KEY = process.env.CURRENCY_API_KEY ?? "";
+    this.CURRENCY_API_KEY = process.env.CURRENCY_API_KEY ?? '';
   }
 
-  public async fetchCurrency(_location: ILocation): Promise<any> {
-    /*    const response = await fetch(
-      `http://data.fixer.io/api/latest?access_key=${this.CURRENCY_API_KEY}&base=USD&symbols=${location.currency},USD`
+  public async fetchCurrency(location: ILocation): Promise<CurrencyDTO[]> {
+    const response = await fetch(
+      `http://data.fixer.io/api/latest?access_key=${this.CURRENCY_API_KEY}`,
     );
     if (!response.ok) {
       throw new Error(
-        `Error calling Currency API. The request was not success ${response.status}`
+        `Error calling Currency API. The request was not success ${response.status}`,
       );
     }
     const data: ICurrencyAPIResponse = await response.json();
     if (!data.success) {
-      throw new Error(`Error processing call = Code: ${data?.error?.code} - Type:  ${data?.error?.type}`)
+      throw new Error(`Error processing call = Code: ${data?.error?.code} - Type:  ${data?.error?.type}`);
     }
-    */
-    const data: ICurrencyAPIResponse = {
-      success: true,
-      timestamp: 1519296206,
-      base: "USD",
-      date: "2023-07-21",
-      rates: {
-        ARS: 0.023,
-        JPY: 107.346001,
-        EUR: 0.813399,
-      },
-    } as ICurrencyAPIResponse;
-    return this.toICurrency(data);
+    return this.toICurrency(data, location);
   }
 
-  private toICurrency(data: ICurrencyAPIResponse): CurrencyDTO[] {
-    const ratesEntries = Object.entries(data.rates);
-    return ratesEntries.map(([iso, conversionRate]) => {
-      const currencyData = {
-        iso,
-        symbol: "$",
-        conversionRate,
-      };
-
-      const currencyDto: CurrencyDTO = new CurrencyDTO(currencyData);
-      return currencyDto.build();
+  private toICurrency(data: ICurrencyAPIResponse, location: ILocation): CurrencyDTO[] {
+    const currencies: CurrencyDTO[] = [];
+    let currencyDto: CurrencyDTO = new CurrencyDTO({
+      iso: location.currency,
+      symbol: '$',
+      conversionRate: 1 / data.rates[location.currency],
     });
+    currencies.push(currencyDto.build());
+
+    // The endpoint calculate currencies in EUR, and docs says it should be in USD.
+    currencyDto = new CurrencyDTO({
+      iso: 'USD',
+      symbol: '$',
+      conversionRate: 1,
+    });
+    currencies.push(currencyDto.build());
+    return currencies;
   }
 }

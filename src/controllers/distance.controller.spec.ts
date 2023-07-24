@@ -9,6 +9,7 @@ import { ILocation } from '../interfaces/location.interface';
 import { RedisService } from "../services/redis.service";
 import { TraceInfoDTO } from '../dto/traceInfo.dto';
 import { DistanceInfoDTO } from '../dto/distanceInfo.dto';
+import { getDateFormatted } from '../utils/commons';
 
 describe("DistanceController", () => {
   let distanceController: DistanceController;
@@ -90,7 +91,7 @@ describe("DistanceController", () => {
         nextFunction
       );
 
-      expect(mockRedisService.get).toHaveBeenCalledWith("192.168.1.1");
+      expect(mockRedisService.get).toHaveBeenCalledWith(mockLocation.ip + getDateFormatted());
       expect(mockResponse.json).toHaveBeenCalledWith(mockCachedData);
     });
 
@@ -125,7 +126,7 @@ describe("DistanceController", () => {
         nextFunction
       );
 
-      expect(mockRedisService.get).toHaveBeenCalledWith("192.168.1.1");
+      expect(mockRedisService.get).toHaveBeenCalledWith(mockLocation.ip + getDateFormatted());
       expect(mockDistanceService.fetchIpInformation).toHaveBeenCalledWith("192.168.1.1");
       expect(mockCurrencyService.fetchCurrency).toHaveBeenCalledWith(mockLocation);
       expect(mockRedisService.set).toHaveBeenCalledWith("192.168.1.1", mockTrace);
